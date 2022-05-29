@@ -16,6 +16,7 @@ public class CameraMovement : MonoBehaviour
     private InputAction _leftClick;
     private InputAction _rightClick;
     private InputAction _middleClick;
+    private InputAction _mouseLoc;
     private InputAction _scroll;
 
     void Awake()
@@ -25,6 +26,7 @@ public class CameraMovement : MonoBehaviour
         _rightClick = _PI.actions["MouseRightClick"];
         _middleClick = _PI.actions["MouseMiddleClick"];
         _scroll = _PI.actions["MouseScroll"];
+        _mouseLoc = _PI.actions["MouseLoc"];
     }
     void Update()
     {
@@ -36,17 +38,24 @@ public class CameraMovement : MonoBehaviour
         }
 
 
-        if(_rightClick.triggered)
+        if(_rightClick.IsPressed())
         {
-            Debug.Log("Right Click ");
+
+            yaw += lookSpeedH * Mouse.current.delta.x.ReadValue();
+            pitch -= lookSpeedV * Mouse.current.delta.y.ReadValue();
+
+            transform.eulerAngles = new Vector3(pitch, yaw, 0f);
         }
 
-        if (_middleClick.triggered){
-            Debug.Log("Middle Click");
+        if (_middleClick.IsPressed()){
+            // Debug.Log("Middle Click");
+            transform.Translate(-Mouse.current.delta.x.ReadValue() * Time.deltaTime * dragSpeed, -Mouse.current.delta.y.ReadValue() * Time.deltaTime * dragSpeed, 0);
         }
 
         if (_scroll.ReadValue<Vector2>().magnitude >0 ){
-            Debug.Log("Scroll wheel:  " + _scroll.ReadValue<Vector2>());
+            // Debug.Log("Scroll wheel:  " + _scroll.ReadValue<Vector2>());
+            var norm = _scroll.ReadValue<Vector2>().normalized;
+            transform.Translate(0, 0,  norm[1] * zoomSpeed, Space.Self);
         }
 
 
