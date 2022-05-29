@@ -40,15 +40,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "MouseLoc",
-                    "type": "Value",
-                    "id": "99deda3a-695f-408b-b9b9-4e434a29579d",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -93,17 +84,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "MouseMiddleClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "624ed8b3-2210-4c17-ac0a-5b78fbba504b",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseLoc",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

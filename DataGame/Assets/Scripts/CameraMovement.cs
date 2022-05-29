@@ -16,7 +16,6 @@ public class CameraMovement : MonoBehaviour
     private InputAction _leftClick;
     private InputAction _rightClick;
     private InputAction _middleClick;
-    private InputAction _mouseLoc;
     private InputAction _scroll;
 
     void Awake()
@@ -26,7 +25,6 @@ public class CameraMovement : MonoBehaviour
         _rightClick = _PI.actions["MouseRightClick"];
         _middleClick = _PI.actions["MouseMiddleClick"];
         _scroll = _PI.actions["MouseScroll"];
-        _mouseLoc = _PI.actions["MouseLoc"];
     }
     void Update()
     {
@@ -49,7 +47,9 @@ public class CameraMovement : MonoBehaviour
 
         if (_middleClick.IsPressed()){
             // Debug.Log("Middle Click");
-            transform.Translate(-Mouse.current.delta.x.ReadValue() * Time.deltaTime * dragSpeed, -Mouse.current.delta.y.ReadValue() * Time.deltaTime * dragSpeed, 0);
+            var moveX = Mouse.current.delta.x.ReadValue();
+            var moveY = Mouse.current.delta.y.ReadValue();
+            transform.Translate(-moveX * Time.deltaTime * dragSpeed, -moveY * Time.deltaTime * dragSpeed, 0);
         }
 
         if (_scroll.ReadValue<Vector2>().magnitude >0 ){
@@ -57,24 +57,5 @@ public class CameraMovement : MonoBehaviour
             var norm = _scroll.ReadValue<Vector2>().normalized;
             transform.Translate(0, 0,  norm[1] * zoomSpeed, Space.Self);
         }
-
-
-    //     //Look around with Right Mouse
-    //     if (Input.GetMouseButton(1))
-    //     {
-    //         yaw += lookSpeedH * Input.GetAxis("Mouse X");
-    //         pitch -= lookSpeedV * Input.GetAxis("Mouse Y");
-
-    //         transform.eulerAngles = new Vector3(pitch, yaw, 0f);
-    //     }
-
-    //     //drag camera around with Middle Mouse
-    //     if (Input.GetMouseButton(2))
-    //     {
-    //         transform.Translate(-Input.GetAxisRaw("Mouse X") * Time.deltaTime * dragSpeed, -Input.GetAxisRaw("Mouse Y") * Time.deltaTime * dragSpeed, 0);
-    //     }
-
-    //     //Zoom in and out with Mouse Wheel
-    //     transform.Translate(0, 0, Input.GetAxis("Mouse ScrollWheel") * zoomSpeed, Space.Self);
     }
 }
