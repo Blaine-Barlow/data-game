@@ -30,10 +30,10 @@ public class CameraMovement : MonoBehaviour
     {
         
         
-        if(_leftClick.triggered)
-        {
-            Debug.Log("Left Click ");
-        }
+        // if(_leftClick.triggered)
+        // {
+        //     Debug.Log("Left Click ");
+        // }
 
 
         if(_rightClick.IsPressed())
