@@ -6,7 +6,7 @@ public class Arrays : MonoBehaviour
 {
 
     private int _sizeX = 0;
-    private int _sizeY = 0;
+    private int _sizeY = 1;
     // private int _dimensions = 0;
     private Transform tm;
     private GameObject[] contents;
@@ -42,9 +42,6 @@ public class Arrays : MonoBehaviour
 
     /*
     Purpose: to create the structure of the empty array
-    Param: dimensions: int 1,2 for 1D or 2D array
-    Param: sizeX length in the X direction of array
-    Param: sizeY length in the Y direction of array
     */
     public void createEmptyArray()
     {   
@@ -62,54 +59,54 @@ public class Arrays : MonoBehaviour
            After Grid, intialize contents.
            Each cube is .8 scale size. to centre position of cube need array structure centre. 
         */
-        // GameObject line1 = Instantiate(line, bottomConn.transform.position, Quaternion.identity, this.transform);
-        // LineRenderer lRend = line1.GetComponent<LineRenderer>();
-        // lRend.SetPosition(0, bottomConn.transform.position);
-        // lRend.SetPosition(1, bottomConn.transform.position + new Vector3(0,-1,0));
-        // create a line from (0,0,0) to end of array. 
         if (this._sizeX != 0 && !gridCreated){
-            generate2dCells(true);
-            generate2dCells(false);
+            Vector3 startingPos = new Vector3(0,0,0);
+            for(int i = 0; i <_sizeY ; i++){
+                
+                generate2dCells(true, startingPos);
+                generate2dCells(false, startingPos);
+                startingPos += new Vector3(0,1.5f,0);
+            }
         }
     }
 
-    private void generate2dCells(bool front)
+    /*
+    Purpose: to generate lines for a shape of the array, if front will create the full array shape with lines to connect to the back position. 
+    Param: Bool front: if true, generate front cells and connection lines, if false generate only back array
+    */
+    private void generate2dCells(bool front, Vector3 startPos)
     {       
             Vector3 offset =new Vector3(0,0,1.5f);
             if (front) offset = new Vector3(0,0,0);
             gridCreated = true;
-            LineRenderer topline = Instantiate(gridLine, new Vector3(0,0,0) + offset, Quaternion.identity, fullGrid.transform);
-            topline.SetPosition(0, fullGrid.transform.position+ offset);
-            topline.SetPosition(1, fullGrid.transform.position + new Vector3(_sizeX*1.5f,0,0)+ offset);
+            LineRenderer topline = Instantiate(gridLine, startPos + offset, Quaternion.identity, fullGrid.transform);
+            topline.SetPosition(0, startPos + offset);
+            topline.SetPosition(1, startPos + new Vector3(_sizeX*1.5f,0,0)+ offset);
             LineRenderer botLine = Instantiate(gridLine, topline.transform.position+ offset, Quaternion.identity, fullGrid.transform);
-            botLine.SetPosition(0, fullGrid.transform.position + new Vector3(fullGrid.transform.position.x, -1.5f, 0)+ offset);
-            botLine.SetPosition(1, fullGrid.transform.position + new Vector3(_sizeX*1.5f, -1.5f, 0)+ offset);
+            botLine.SetPosition(0, startPos + new Vector3(startPos[0], -1.5f, 0)+ offset);
+            botLine.SetPosition(1, startPos + new Vector3(_sizeX*1.5f, -1.5f, 0)+ offset);
             
-            float posx = fullGrid.transform.position.x;
-            float posy = fullGrid.transform.position.y;
+            float posx = startPos[0];
+            float posy = startPos[1];
             for (int i = 0; i <_sizeX + 1; i++)
             {
-
-
-                LineRenderer verticalLine = Instantiate(gridLine, new Vector3(posx,0,0)+ offset, Quaternion.identity, fullGrid.transform);
-                verticalLine.SetPosition(0, new Vector3(posx, 0,0)+ offset);
-                verticalLine.SetPosition(1, new Vector3(posx, -1.5f, 0)+ offset);
+                LineRenderer verticalLine = Instantiate(gridLine, new Vector3(posx, posy, 0)+ offset, Quaternion.identity, fullGrid.transform);
+                verticalLine.SetPosition(0, new Vector3(posx, posy, 0) + offset);
+                verticalLine.SetPosition(1, new Vector3(posx, posy - 1.5f, 0)+ offset);
                 
 
                 // do connection bars
                 if (front)
                 {
-                    LineRenderer connectionLine = Instantiate(gridLine, new Vector3(posx,0,0), Quaternion.identity, fullGrid.transform);
-                    connectionLine.SetPosition(0, new Vector3(posx, 0,0));
-                    connectionLine.SetPosition(1, new Vector3(posx, 0, 1.5f));
-                    LineRenderer connectionLine2 = Instantiate(gridLine, new Vector3(posx, -1.5f, 0), Quaternion.identity, fullGrid.transform);
-                    connectionLine2.SetPosition(0, new Vector3(posx, -1.5f, 0));
-                    connectionLine2.SetPosition(1, new Vector3(posx, -1.5f, 1.5f));
+                    LineRenderer connectionLine = Instantiate(gridLine, new Vector3(posx, posy,0), Quaternion.identity, fullGrid.transform);
+                    connectionLine.SetPosition(0, new Vector3(posx, posy,0));
+                    connectionLine.SetPosition(1, new Vector3(posx, posy, 1.5f));
+                    LineRenderer connectionLine2 = Instantiate(gridLine, new Vector3(posx, posy -1.5f, 0), Quaternion.identity, fullGrid.transform);
+                    connectionLine2.SetPosition(0, new Vector3(posx, posy -1.5f, 0));
+                    connectionLine2.SetPosition(1, new Vector3(posx,posy -1.5f, 1.5f));
                 }
                 posx += 1.5f;
             }
-
-
     }
 
     private void destroyGrid()
