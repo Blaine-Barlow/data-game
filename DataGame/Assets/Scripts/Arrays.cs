@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class Arrays : MonoBehaviour
 {
-
     private int _sizeX = 0;
     private int _sizeY = 1;
-    // private int _dimensions = 0;
     private Transform tm;
-    private GameObject[] contents;
-
+    public List<GameObject> contents = new List<GameObject>();
+    public GameObject node;
     public LineRenderer gridLine;
 
     private bool gridCreated = false;
     public GameObject fullGrid;
+    public GameObject cubeStorage;
+
 
     void Start() {
         tm = this.GetComponent<Transform>();
-        // fullGrid = Instantiate(new GameObject("Array Grid"), new Vector3(0,0,0), Quaternion.identity);
     }
 
     public void storeSizeX(string s)
@@ -46,8 +45,6 @@ public class Arrays : MonoBehaviour
     public void createEmptyArray()
     {   
         destroyGrid();
-        
-
         /* create lines for the size of the array. 
            Need block size, 
            position,
@@ -70,13 +67,43 @@ public class Arrays : MonoBehaviour
         }
     }
 
+    public void createNonEmptyArray()
+    {
+        destroyGrid();
+        if (this._sizeX !=0 && !gridCreated)
+        {   
+            Vector3 startingPos = new Vector3(0,0,0);
+            for(int i = 0; i <_sizeY ; i++){   
+                generate2dCells(true, startingPos);
+                generate2dCells(false, startingPos);
+                startingPos += new Vector3(0,1.5f,0);
+            }
+        }
+        Vector3 cubeStart = new Vector3(.75f, -.75f, .75f);
+        for (int i = 0 ; i < _sizeX; i++)
+        {
+            // Generate Cubes;
+            GameObject newNode = Instantiate(node, cubeStart, Quaternion.identity, cubeStorage.transform);
+            contents.Add(newNode);
+
+            Vector3 Ystart = new Vector3(cubeStart[0], cubeStart[1] + 1.5f, cubeStart[2]);
+            for (int j = 1; j < _sizeY; j++)
+            {
+                GameObject newNode2 = Instantiate(node, Ystart, Quaternion.identity, cubeStorage.transform);
+                contents.Add(newNode);
+                Ystart += new Vector3(0, 1.5f,0);
+            }
+            cubeStart += new Vector3(1.5f, 0, 0);
+        }
+    }
+
     /*
     Purpose: to generate lines for a shape of the array, if front will create the full array shape with lines to connect to the back position. 
     Param: Bool front: if true, generate front cells and connection lines, if false generate only back array
     */
     private void generate2dCells(bool front, Vector3 startPos)
     {       
-            Vector3 offset =new Vector3(0,0,1.5f);
+            Vector3 offset = new Vector3(0,0,1.5f);
             if (front) offset = new Vector3(0,0,0);
             gridCreated = true;
             LineRenderer topline = Instantiate(gridLine, startPos + offset, Quaternion.identity, fullGrid.transform);
@@ -119,14 +146,17 @@ public class Arrays : MonoBehaviour
             }
         }
         gridCreated = false;
-    }
-
-    public void createInitializedArray(int size, GameObject type)
-    {
-        contents = new GameObject[size];
-        for (int i = 0; i < size; i++)
+        if (cubeStorage)
         {
-            contents[i] = type;
+            foreach(Transform child in cubeStorage.transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+        }
+        if (contents.Count > 0)
+        {
+            contents.Clear();
         }
     }
+
 }
