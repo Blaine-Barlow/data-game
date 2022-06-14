@@ -14,10 +14,34 @@ public class Node : MonoBehaviour
 
     public GameObject line;
 
-    void Start() {
-        // GameObject line1 = Instantiate(line, bottomConn.transform.position, Quaternion.identity, this.transform);
-        // LineRenderer lRend = line1.GetComponent<LineRenderer>();
-        // lRend.SetPosition(0, backConn.transform.position);
-        // lRend.SetPosition(1, backConn.transform.position + new Vector3(0,0,2));
+    private string _dataType;
+    private string _data;
+    private string _reference;
+
+    private Transform _referenceCell;
+
+    public void setDataType(string s)
+    {
+        _dataType = s;
+    }
+
+    public void setData(string s)
+    {
+        _data = s;
+    }
+
+    public void setReference(string s)
+    {
+        _reference = s;
+    }
+
+    public void setReferenceCell(Transform tm)
+    {
+        _referenceCell = tm;
+    }
+
+    public string getNodeData()
+    {
+        return "DataType: " + _dataType + "\nData: " + _data + "\n_reference: " + _reference;
     }
 }
