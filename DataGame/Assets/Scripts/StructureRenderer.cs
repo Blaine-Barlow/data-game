@@ -91,6 +91,7 @@ public class StructureRenderer : MonoBehaviour
     public void DrawLayer1()
     {
         int sizeX = _sizeX;
+        int sizeHeight = _sizeY; // 2D original height shows number of Z height
         int sizeY = _lay1SizeX;
         int sizeZ = _lay1SizeY;
 
@@ -100,12 +101,10 @@ public class StructureRenderer : MonoBehaviour
         float halfLength = extents[0];
         if (sizeX > 1)
         {
-            Debug.Log((sizeX/2) % 2);
             if (sizeX == 2)
             {
                 xStart += halfLength + halfLength * sizeX/2;
                 xStart -= halfLength * 4;
-
             }
             else if (sizeX == 3)
             {
@@ -124,16 +123,52 @@ public class StructureRenderer : MonoBehaviour
             }
 
         }
-        for (int x = 0; x < sizeX; x++)
-        {
-            layer1Helper(xStart, sizeY, sizeZ);
-            xStart += _layer1spacer + extents[0] *2;
+        float yStart = startLocation[1];
+        float ySpacer = 0;
+        if (sizeHeight > 1)
+        {   
+            if (sizeHeight == 2)
+            {
+                yStart += (halfLength*2) * sizeHeight/2 + halfLength; // put at centre
+                yStart -= (halfLength*2) * sizeY - halfLength + _layer1spacer*(sizeHeight - 1);
+            }
+            else if (sizeHeight == 3)
+            {
+                yStart += (halfLength*3);
+                yStart -= (sizeY/2 * (halfLength*2)) + halfLength + _layer1spacer + sizeY*(halfLength*2);
+            }
+            else if (sizeHeight > 3 && sizeHeight % 2 == 1) // odd
+            {
+                yStart += (halfLength * sizeHeight);
+                yStart -= (sizeY/2 * (halfLength*2)) + halfLength + _layer1spacer + sizeY*(sizeHeight-1)*(halfLength*2);
+            }
+            else 
+            {
+                yStart += (halfLength * sizeHeight);
+                yStart -= (sizeY * (halfLength*2)) + _layer1spacer + (sizeY -1)*(sizeHeight -1) * (halfLength*2);
+            }
+
+            // Spacer is what i need.
+            ySpacer = halfLength + sizeY * _layer1spacer;
         }
+
+        float originalXStart = xStart;
+        for (int height = 0; height < sizeHeight; height++)
+        {
+            for (int x = 0; x < sizeX; x++)
+            {
+                layer1Helper(xStart,yStart, sizeY, sizeZ);
+                xStart += _layer1spacer + extents[0] * 2;
+            }
+            xStart = originalXStart;
+            yStart += ySpacer;
+        }
+
     }
 
-    private void layer1Helper(float xLoc, int sizeY, int sizeZ)
+    private void layer1Helper(float xLoc,float yLoc, int sizeY, int sizeZ)
     {
-        Vector3 start = new Vector3(xLoc, _layerLocations[1][1], _layerLocations[1][2]);
+        Vector3 start = new Vector3(xLoc, yLoc, _layerLocations[1][2]);
         float length = extents[0] * 2;
         Vector3 originalStart = start;
         for (int row = 0; row <sizeZ ; row++)
