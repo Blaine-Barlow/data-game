@@ -47,4 +47,10 @@ public class CameraMovement : MonoBehaviour
             transform.Translate(0, 0,  norm[1] * zoomSpeed, Space.Self);
         }
     }
+
+    public void resetCameraPosition()
+    {
+        this.gameObject.transform.position = new Vector3(10,2,-10);
+        this.gameObject.transform.rotation = new Quaternion(0,0,0,0);
+    }
 }
