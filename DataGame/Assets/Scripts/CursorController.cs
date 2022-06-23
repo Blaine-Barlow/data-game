@@ -45,7 +45,7 @@ public class CursorController : MonoBehaviour
         {
             if (hit.collider != null)
             {
-                Debug.Log("Hit: " + hit.collider.tag);
+                hit.collider.gameObject.GetComponent<IClicked>().onClickAction();
             }
         }
     }
