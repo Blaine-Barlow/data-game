@@ -28,17 +28,8 @@ public class CameraMovement : MonoBehaviour
     }
     void Update()
     {
-        
-        
-        // if(_leftClick.triggered)
-        // {
-        //     Debug.Log("Left Click ");
-        // }
-
-
         if(_rightClick.IsPressed())
         {
-
             yaw += lookSpeedH * Mouse.current.delta.x.ReadValue();
             pitch -= lookSpeedV * Mouse.current.delta.y.ReadValue();
 
@@ -46,14 +37,12 @@ public class CameraMovement : MonoBehaviour
         }
 
         if (_middleClick.IsPressed()){
-            // Debug.Log("Middle Click");
             var moveX = Mouse.current.delta.x.ReadValue();
             var moveY = Mouse.current.delta.y.ReadValue();
             transform.Translate(-moveX * Time.deltaTime * dragSpeed, -moveY * Time.deltaTime * dragSpeed, 0);
         }
 
         if (_scroll.ReadValue<Vector2>().magnitude >0 ){
-            // Debug.Log("Scroll wheel:  " + _scroll.ReadValue<Vector2>());
             var norm = _scroll.ReadValue<Vector2>().normalized;
             transform.Translate(0, 0,  norm[1] * zoomSpeed, Space.Self);
         }

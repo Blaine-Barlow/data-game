@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StructureRenderer : MonoBehaviour
+public class StructureRendererv2 : MonoBehaviour
 {
     public GameObject wireFrame; 
     public Transform layer0;
@@ -17,7 +17,6 @@ public class StructureRenderer : MonoBehaviour
     private float offsetBound;
 
     private float _cubeLength;
-
     // Layer 1 Variables
     [SerializeField] private float _layer1spacer = 2f;
 
@@ -80,6 +79,9 @@ public class StructureRenderer : MonoBehaviour
     }
 
 
+    /*
+    Draw the secondary layer which contains the arrays that the layer0 array of pointers point to.
+    */
     public void DrawLayer1()
     {
         int sizeX = _sizeX;
@@ -182,3 +184,4 @@ public class StructureRenderer : MonoBehaviour
     }
     
 }
+

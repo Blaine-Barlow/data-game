@@ -467,7 +467,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1336427624}
-        m_TargetAssemblyTypeName: StructureRenderer, Assembly-CSharp
+        m_TargetAssemblyTypeName: StructureRendererv2, Assembly-CSharp
         m_MethodName: storeLay1SizeX
         m_Mode: 0
         m_Arguments:
@@ -655,7 +655,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1336427624}
-        m_TargetAssemblyTypeName: StructureRenderer, Assembly-CSharp
+        m_TargetAssemblyTypeName: StructureRendererv2, Assembly-CSharp
         m_MethodName: storeSizeX
         m_Mode: 0
         m_Arguments:
@@ -843,7 +843,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1336427624}
-        m_TargetAssemblyTypeName: StructureRenderer, Assembly-CSharp
+        m_TargetAssemblyTypeName: StructureRendererv2, Assembly-CSharp
         m_MethodName: storeSizeY
         m_Mode: 0
         m_Arguments:
@@ -1107,7 +1107,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1336427624}
-        m_TargetAssemblyTypeName: StructureRenderer, Assembly-CSharp
+        m_TargetAssemblyTypeName: StructureRendererv2, Assembly-CSharp
         m_MethodName: storeLay1SizeY
         m_Mode: 0
         m_Arguments:
@@ -1402,7 +1402,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1336427624}
-        m_TargetAssemblyTypeName: StructureRenderer, Assembly-CSharp
+        m_TargetAssemblyTypeName: StructureRendererv2, Assembly-CSharp
         m_MethodName: DrawLayer1
         m_Mode: 1
         m_Arguments:
@@ -2462,13 +2462,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1336427621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 952def2c22afaa343a2642db03c3238a, type: 3}
+  m_Script: {fileID: 11500000, guid: 57609e4237d17864bb5b5d7c04cd5b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   wireFrame: {fileID: 5945194014377006742, guid: c6522e67328b4e84490d3c3f4ed8faf1, type: 3}
   layer0: {fileID: 1652750237}
   layer1: {fileID: 643785152}
-  _layer1spacer: 3
+  _layer1spacer: 2
 --- !u!1 &1501006453
 GameObject:
   m_ObjectHideFlags: 0
@@ -3015,20 +3015,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1336427624}
-        m_TargetAssemblyTypeName: StructureRenderer, Assembly-CSharp
+        m_TargetAssemblyTypeName: StructureRendererv2, Assembly-CSharp
         m_MethodName: DrawLayer0
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1336427624}
-        m_TargetAssemblyTypeName: StructureRenderer, Assembly-CSharp
-        m_MethodName: DestroyLayer1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
