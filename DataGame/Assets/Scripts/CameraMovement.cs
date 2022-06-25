@@ -50,7 +50,7 @@ public class CameraMovement : MonoBehaviour
 
     public void resetCameraPosition()
     {
-        this.gameObject.transform.position = new Vector3(10,2,-10);
+        this.gameObject.transform.position = new Vector3(3,2,-10);
         this.gameObject.transform.rotation = new Quaternion(0,0,0,0);
     }
 }

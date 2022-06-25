@@ -6,7 +6,6 @@ public class WireFrameNode : MonoBehaviour, IClicked
 {
 
     MeshRenderer mRenderer;
-    private bool isSelected = false;
     private void Awake() {
         mRenderer = GetComponent<MeshRenderer>();
 
@@ -14,14 +13,27 @@ public class WireFrameNode : MonoBehaviour, IClicked
 
     public void onClickAction()
     {
-        if (isSelected)
-        {
-            mRenderer.material.color = Color.white;
-        }
-        else
-        {
-            mRenderer.material.color = Color.red;
-        }
-        isSelected = !isSelected;
+        GameObject.Find("GameManager").GetComponent<GameManager>().highlightNode(this);
     }
+
+    public void highlight()
+    {
+        mRenderer.material.color = Color.red;
+    }
+
+    public void unHighlight()
+    {
+        mRenderer.material.color = Color.white;
+    }
+
+    public void selectedTraverse()
+    {
+        mRenderer.material.color = Color.green;
+    }
+
+    public void deselectTraverse()
+    {
+        unHighlight();
+    }
+
 }
