@@ -7,7 +7,12 @@ public class StructureRendererv2 : MonoBehaviour
     public GameObject wireFrame; 
     public Transform layer0;
     public Transform layer1;
-    public LineRenderer referenceLine;
+    public Transform lines;
+    public GameObject referenceLine;
+
+
+    // Next task To add reference lines from each cell in layer0 to cell in layer1
+    private List<List<Vector3>> firstNodeLocations;
 
     private FullGameStructure _structure;
 
@@ -31,6 +36,7 @@ public class StructureRendererv2 : MonoBehaviour
         _structure = ScriptableObject.CreateInstance<FullGameStructure>();
         _cubeLength = wireFrame.GetComponent<MeshRenderer>().bounds.extents[0] * 2;
         _layerLocations = _structure.layerLoc;
+        firstNodeLocations = new List<List<Vector3>>();
     }
 
     public void storeSizeX(string s)
@@ -57,12 +63,14 @@ public class StructureRendererv2 : MonoBehaviour
         int sizeX = _sizeX;
         int sizeY = _sizeY;
         DestroyLayer0();
+        DestroyLayer1();
         startLocation = _layerLocations[0];
         Vector3 originalStart = startLocation;
         for (int row = 0; row < sizeX; row++ )
             {
             for (int col = 0; col < sizeY; col++)
                 {
+                    firstNodeLocations.Add(new List<Vector3>());
                     GameObject newNode = Instantiate(wireFrame, startLocation, Quaternion.identity, layer0.transform);
                     startLocation += new Vector3(0, _cubeLength, 0);
                 }
@@ -76,6 +84,7 @@ public class StructureRendererv2 : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
+        firstNodeLocations.Clear();
     }
 
 
@@ -150,13 +159,14 @@ public class StructureRendererv2 : MonoBehaviour
         {
             for (int x = 0; x < sizeX; x++)
             {
+                firstNodeLocations[height].Add(new Vector3(xStart,yStart, _layerLocations[1][2]));
                 layer1Helper(xStart,yStart, sizeY, sizeZ);
                 xStart += _layer1spacer + _cubeLength;
             }
             xStart = originalXStart;
             yStart += ySpacer;
         }
-
+        drawLinkLines();
     }
 
     private void layer1Helper(float xLoc,float yLoc, int sizeY, int sizeZ)
@@ -175,9 +185,38 @@ public class StructureRendererv2 : MonoBehaviour
 
     }
 
+    private void drawLinkLines()
+    {
+        int sizeX = _sizeX;
+        int sizeY = _sizeY;
+        startLocation = _layerLocations[0];
+        Vector3 originalStart = startLocation;
+        for (int row = 0; row < sizeX; row++ )
+            {
+            for (int col = 0; col < sizeY; col++)
+                {
+                    GameObject newLine = Instantiate(referenceLine, startLocation, Quaternion.identity, lines.transform);
+                    newLine.GetComponent<LineRenderer>().SetPosition(0, startLocation + new Vector3(0,0, .5f));
+                    newLine.GetComponent<LineRenderer>().SetPosition(1, firstNodeLocations[col][row] + new Vector3(0,0,-.5f));
+                    startLocation += new Vector3(0, _cubeLength, 0);
+                }
+                startLocation = new Vector3(startLocation[0] + _cubeLength, originalStart[1], originalStart[2]);
+            }
+    }
+
     public void DestroyLayer1()
     {
         foreach (Transform child in layer1.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        // add in the line destroy
+        for (int i = 0; i < firstNodeLocations.Count; i++)
+        {
+            firstNodeLocations[i].Clear();
+        }
+
+        foreach (Transform child in lines.transform)
         {
             GameObject.Destroy(child.gameObject);
         }
