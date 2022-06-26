@@ -7,6 +7,7 @@ public class StructureRendererv2 : MonoBehaviour
     public GameObject wireFrame; 
     public Transform layer0;
     public Transform layer1;
+    public LineRenderer referenceLine;
 
     private FullGameStructure _structure;
 
@@ -62,7 +63,6 @@ public class StructureRendererv2 : MonoBehaviour
             {
             for (int col = 0; col < sizeY; col++)
                 {
-                    // make 3 layer game objects to place this as children.
                     GameObject newNode = Instantiate(wireFrame, startLocation, Quaternion.identity, layer0.transform);
                     startLocation += new Vector3(0, _cubeLength, 0);
                 }

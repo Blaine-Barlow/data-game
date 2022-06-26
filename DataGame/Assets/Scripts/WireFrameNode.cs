@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class WireFrameNode : MonoBehaviour, IClicked
 {
-
+    public GameObject dataNode; 
     MeshRenderer mRenderer;
     private void Awake() {
         mRenderer = GetComponent<MeshRenderer>();
-
     }
 
     public void onClickAction()
@@ -36,4 +35,12 @@ public class WireFrameNode : MonoBehaviour, IClicked
         unHighlight();
     }
 
+    public void spawnNode(string nodeDataType, string nodeData, string refer)
+    {
+        GameObject newNode = Instantiate(dataNode, this.transform.position, Quaternion.identity, this.transform);
+        Node temp = newNode.GetComponent<Node>();
+        temp.setDataType(nodeDataType);
+        temp.setData(nodeData);
+        temp.setReference(refer);
+    }
 }
