@@ -2327,6 +2327,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 890417914}
   m_CullTransparentMesh: 1
+--- !u!1 &956398428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 956398429}
+  m_Layer: 0
+  m_Name: lines
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &956398429
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956398428}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1867859485}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &962549056
 GameObject:
   m_ObjectHideFlags: 0
@@ -3293,7 +3324,8 @@ MonoBehaviour:
   wireFrame: {fileID: 5945194014377006742, guid: c6522e67328b4e84490d3c3f4ed8faf1, type: 3}
   layer0: {fileID: 1652750237}
   layer1: {fileID: 643785152}
-  referenceLine: {fileID: 1666151766917743893, guid: b17086b333e98e14483ee9b3e41190ed, type: 3}
+  lines: {fileID: 956398429}
+  referenceLine: {fileID: 6614065976380403525, guid: b17086b333e98e14483ee9b3e41190ed, type: 3}
   _layer1spacer: 2
 --- !u!114 &1336427625
 MonoBehaviour:
@@ -3765,6 +3797,7 @@ Transform:
   m_Children:
   - {fileID: 1652750237}
   - {fileID: 643785152}
+  - {fileID: 956398429}
   m_Father: {fileID: 1336427623}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -57,9 +57,18 @@ public class GameManager : MonoBehaviour
         // for testing purposes datatype = int, data = 0, reference = ""
         if (layer == 0 && layer0Activated)
         {
+            string type = "int";
+            string value = "0";
             foreach (Transform child in layer0)
-            {
-                child.GetComponent<WireFrameNode>().spawnNode("int", "0", "");
+            {   
+                if (child.transform.childCount > 0)
+                {
+                    foreach (Transform ch in child.transform)
+                    {
+                        GameObject.Destroy(ch.gameObject);
+                    }
+                }
+                child.GetComponent<WireFrameNode>().spawnNode(type, value, "");
             }
         }
 
@@ -67,7 +76,29 @@ public class GameManager : MonoBehaviour
         {
             foreach (Transform child in layer1)
             {
+                if (child.transform.childCount > 0)
+                {
+                    foreach (Transform ch in child.transform)
+                    {
+                        GameObject.Destroy(ch.gameObject);
+                    }
+                }
                 child.GetComponent<WireFrameNode>().spawnNode("int", "0", "");
+            }
+
+            foreach (Transform child in layer0)
+            {
+                if (child.transform.childCount > 0)
+                {
+                    foreach(Transform ch in child.transform)
+                    {   
+                        Node temp = ch.GetComponent<Node>();
+                        temp.setDataType("Pointer");
+                        temp.setData("");
+                        temp.setReference("");
+                        temp.updateNodeDisplay();
+                    }
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Node : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class Node : MonoBehaviour
 
     public void setData(string s)
     {
-        _data = s;
+        _data = s;   
     }
 
     public void setReference(string s)
@@ -42,6 +43,18 @@ public class Node : MonoBehaviour
 
     public string getNodeData()
     {
-        return "DataType: " + _dataType + "\nData: " + _data + "\n_reference: " + _reference;
+        return "DataType: " + _dataType + "\nData: " + _data;
+    }
+
+    public void updateNodeDisplay()
+    {
+        Transform nodeCanvas = this.gameObject.transform.Find("NodeCanvas");
+
+        foreach (Transform child in nodeCanvas)
+        {
+            if (child.GetComponent<TextMeshProUGUI>()){
+                child.GetComponent<TextMeshProUGUI>().text = this.getNodeData();
+            }
+        }
     }
 }
