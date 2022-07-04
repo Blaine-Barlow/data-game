@@ -39,24 +39,45 @@ public class StructureRendererv2 : MonoBehaviour
         firstNodeLocations = new List<List<Vector3>>();
     }
 
-    public void storeSizeX(string s)
+    public void handleInputDataX(int value)
     {
-        int.TryParse(s, out this._sizeX); 
+        this._sizeX = value;
     }
 
-    public void storeSizeY(string s)
+    public void handleInputDataY(int value)
     {
-        int.TryParse(s, out this._sizeY);  
+        this._sizeY = value;
     }
 
-    public void storeLay1SizeX(string s)
+    // Outdated:
+    // public void storeSizeX(string s)
+    // {
+    //     int.TryParse(s, out this._sizeX); 
+    // }
+
+    // public void storeSizeY(string s)
+    // {
+    //     int.TryParse(s, out this._sizeY);  
+    // }
+
+    public void handleInputData2ndX(int value)
     {
-        int.TryParse(s, out this._lay1SizeX);  
+        this._lay1SizeX = value;
     }
-    public void storeLay1SizeY(string s)
+
+    public void handleInputData2ndY(int value)
     {
-        int.TryParse(s, out this._lay1SizeY);  
+        this._lay1SizeY = value;
     }
+    // Outdated
+    // public void storeLay1SizeX(string s)
+    // {
+    //     int.TryParse(s, out this._lay1SizeX);  
+    // }
+    // public void storeLay1SizeY(string s)
+    // {
+    //     int.TryParse(s, out this._lay1SizeY);  
+    // }
 
     public void DrawLayer0()
     {   
