@@ -114,6 +114,7 @@ public class StructureRendererv2 : MonoBehaviour
     */
     public void DrawLayer1()
     {
+        if (_lay1SizeX == 0) return;
         int sizeX = _sizeX;
         int sizeHeight = _sizeY; // 2D original height shows number of Z height
         int sizeY = _lay1SizeX;
@@ -227,6 +228,7 @@ public class StructureRendererv2 : MonoBehaviour
 
     public void DestroyLayer1()
     {
+        GetComponent<GameManager>().deactivateLayer1();
         foreach (Transform child in layer1.transform)
         {
             GameObject.Destroy(child.gameObject);
