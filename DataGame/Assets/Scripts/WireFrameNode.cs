@@ -42,5 +42,6 @@ public class WireFrameNode : MonoBehaviour, IClicked
         temp.setDataType(nodeDataType);
         temp.setData(nodeData);
         temp.setReference(refer);
+        temp.updateNodeDisplay();
     }
 }

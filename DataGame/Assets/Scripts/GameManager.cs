@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private WireFrameNode selectedNode;
-
+    private string[] dataTypes = {"Integer", "Float", "Double", "Char", "String","Boolean", "Pointer", "Generic<T>"};
 
     private NodeManager NM;
     
@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour
         NM = GetComponent<NodeManager>();
     }
 
+    public void setInitialNodeDataType(int choice)
+    {
+        Debug.Log(dataTypes[choice]);
+        NM.setDatatype0(dataTypes[choice]);
+    }
     public void activateLayer0()
     {
         NM.Lay0Activated(true);

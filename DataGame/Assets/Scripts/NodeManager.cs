@@ -10,7 +10,14 @@ public class NodeManager : MonoBehaviour
     private bool layer0Activated = false;
     private bool layer1Activated = false;
     // need to add stuff in canvas to choose data type and data
+    private string datatype0;
+    private string datatype1;
+    private string data;
 
+    public void setDatatype0(string s)
+    {
+        datatype0 = s;
+    }
     public void Lay0Activated(bool value)
     {
         layer0Activated = value;
@@ -26,8 +33,6 @@ public class NodeManager : MonoBehaviour
         // for testing purposes datatype = int, data = 0, reference = ""
         if (layer == 0 && layer0Activated)
         {
-            string type = "int";
-            string value = "0";
             foreach (Transform child in layer0)
             {   
                 if (child.transform.childCount > 0)
@@ -37,7 +42,7 @@ public class NodeManager : MonoBehaviour
                         GameObject.Destroy(ch.gameObject);
                     }
                 }
-                child.GetComponent<WireFrameNode>().spawnNode(type, value, "");
+                child.GetComponent<WireFrameNode>().spawnNode(datatype0, "", "");
             }
             if (layer1Activated) setToPointers();
         }
@@ -53,7 +58,7 @@ public class NodeManager : MonoBehaviour
                         GameObject.Destroy(ch.gameObject);
                     }
                 }
-                child.GetComponent<WireFrameNode>().spawnNode("int", "0", "");
+                child.GetComponent<WireFrameNode>().spawnNode(datatype0, "", "");
             }
             setToPointers();
         }
