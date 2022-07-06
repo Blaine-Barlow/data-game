@@ -6,17 +6,28 @@ public class GameManager : MonoBehaviour
 {
     private WireFrameNode selectedNode;
     private string[] dataTypes = {"Integer", "Float", "Double", "Char", "String","Boolean", "Pointer", "Generic<T>"};
-
     private NodeManager NM;
     
+    public GameObject pointedArrayCanvas;
+
     private void Start() {
         NM = GetComponent<NodeManager>();
         setInitialNodeDataType(0);
+
     }
 
     public void setInitialNodeDataType(int choice)
     {
         NM.setDatatype0(dataTypes[choice]);
+        if (dataTypes[choice] == "Pointer")
+        {
+            // Activate second canvas
+            pointedArrayCanvas.GetComponent<MiniCanvasHandler>().showCanvas(true);
+        }
+        else
+        {
+            pointedArrayCanvas.GetComponent<MiniCanvasHandler>().showCanvas(false);
+        }
     }
     public void activateLayer0()
     {
