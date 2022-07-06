@@ -17,6 +17,7 @@ public class NodeManager : MonoBehaviour
     public void setDatatype0(string s)
     {
         datatype0 = s;
+        updateNodeText(datatype0, "", "");
     }
     public void Lay0Activated(bool value)
     {
@@ -26,7 +27,7 @@ public class NodeManager : MonoBehaviour
     public void Lay1Activated(bool value)
     {
         layer1Activated = value;
-        setToPointers();
+        updateNodeText("Pointer", "", "");
     }
     public void fillNodes(int layer)
     {
@@ -44,7 +45,7 @@ public class NodeManager : MonoBehaviour
                 }
                 child.GetComponent<WireFrameNode>().spawnNode(datatype0, "", "");
             }
-            if (layer1Activated) setToPointers();
+            if (layer1Activated) updateNodeText("Pointer", "", "");
         }
 
         else if (layer == 1 && layer1Activated)
@@ -60,11 +61,11 @@ public class NodeManager : MonoBehaviour
                 }
                 child.GetComponent<WireFrameNode>().spawnNode(datatype0, "", "");
             }
-            setToPointers();
+            updateNodeText("Pointer", "", "");
         }
     }
 
-    private void setToPointers()
+    private void updateNodeText(string datatype, string data, string reference)
     {
             foreach (Transform child in layer0)
             {
@@ -73,9 +74,9 @@ public class NodeManager : MonoBehaviour
                     foreach(Transform ch in child.transform)
                     {   
                         Node temp = ch.GetComponent<Node>();
-                        temp.setDataType("Pointer");
-                        temp.setData("");
-                        temp.setReference("");
+                        temp.setDataType(datatype);
+                        temp.setData(data);
+                        temp.setReference(reference);
                         temp.updateNodeDisplay();
                     }
                 }

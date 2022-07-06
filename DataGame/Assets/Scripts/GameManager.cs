@@ -11,11 +11,11 @@ public class GameManager : MonoBehaviour
     
     private void Start() {
         NM = GetComponent<NodeManager>();
+        setInitialNodeDataType(0);
     }
 
     public void setInitialNodeDataType(int choice)
     {
-        Debug.Log(dataTypes[choice]);
         NM.setDatatype0(dataTypes[choice]);
     }
     public void activateLayer0()
