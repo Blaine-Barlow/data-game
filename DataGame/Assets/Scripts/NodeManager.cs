@@ -11,13 +11,19 @@ public class NodeManager : MonoBehaviour
     private bool layer1Activated = false;
     // need to add stuff in canvas to choose data type and data
     private string datatype0;
-    private string datatype1;
+    private string datatype1 = "Integer";
     private string data;
 
-    public void setDatatype0(string s)
+    public void setDataType0(string s)
     {
         datatype0 = s;
-        updateNodeText(datatype0, "", "");
+        updateNodeText(datatype0, "", "", 0);
+    }
+
+    public void setDataType1(string s)
+    {
+        datatype1 = s;
+        updateNodeText(datatype1, "", "", 1);
     }
     public void Lay0Activated(bool value)
     {
@@ -27,7 +33,7 @@ public class NodeManager : MonoBehaviour
     public void Lay1Activated(bool value)
     {
         layer1Activated = value;
-        updateNodeText("Pointer", "", "");
+        updateNodeText("Pointer", "", "", 0);
     }
     public void fillNodes(int layer)
     {
@@ -43,9 +49,9 @@ public class NodeManager : MonoBehaviour
                         GameObject.Destroy(ch.gameObject);
                     }
                 }
-                child.GetComponent<WireFrameNode>().spawnNode(datatype0, "", "");
+                child.GetComponent<WireFrameNode>().spawnNode(datatype1, "", "");
             }
-            if (layer1Activated) updateNodeText("Pointer", "", "");
+            if (layer1Activated) updateNodeText("Pointer", "", "", 0);
         }
 
         else if (layer == 1 && layer1Activated)
@@ -59,15 +65,25 @@ public class NodeManager : MonoBehaviour
                         GameObject.Destroy(ch.gameObject);
                     }
                 }
-                child.GetComponent<WireFrameNode>().spawnNode(datatype0, "", "");
+                child.GetComponent<WireFrameNode>().spawnNode(datatype1, "", "");
             }
-            updateNodeText("Pointer", "", "");
+            updateNodeText("Pointer", "", "", 0);
         }
     }
 
-    private void updateNodeText(string datatype, string data, string reference)
+    public void refreshNodeText0()
     {
-            foreach (Transform child in layer0)
+        updateNodeText(datatype0, "", "", 0);
+       
+    }
+    public void refreshNodeText1()
+    {
+         updateNodeText(datatype1, "", "", 1);
+    }
+    private void updateNodeText(string datatype, string data, string reference, int layer)
+    {
+       Transform theLayer = (layer == 0) ? layer0 : layer1;
+            foreach (Transform child in theLayer)
             {
                 if (child.transform.childCount > 0)
                 {
@@ -81,5 +97,6 @@ public class NodeManager : MonoBehaviour
                     }
                 }
             }
+        
     }
 }

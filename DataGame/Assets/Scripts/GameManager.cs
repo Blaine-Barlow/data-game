@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private WireFrameNode selectedNode;
-    private string[] dataTypes = {"Integer", "Float", "Double", "Char", "String","Boolean", "Pointer", "Generic<T>"};
+    private string[] dataTypes = {"Integer", "Float", "Double", "Char", "String","Boolean","Generic<T>", "Pointer" };
     private NodeManager NM;
     
     public GameObject pointedArrayCanvas;
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public void setInitialNodeDataType(int choice)
     {
-        NM.setDatatype0(dataTypes[choice]);
+        NM.setDataType0(dataTypes[choice]);
         if (dataTypes[choice] == "Pointer")
         {
             // Activate second canvas
@@ -28,6 +28,11 @@ public class GameManager : MonoBehaviour
         {
             pointedArrayCanvas.GetComponent<MiniCanvasHandler>().showCanvas(false);
         }
+    }
+
+    public void setDataTypePointedArray(int choice)
+    {
+        NM.setDataType1(dataTypes[choice]);
     }
     public void activateLayer0()
     {

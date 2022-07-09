@@ -46,7 +46,7 @@ public class StructureRendererv2 : MonoBehaviour
 
     public void handleInputDataY(int value)
     {
-        this._sizeY = value;
+        this._sizeY = value + 1;
     }
 
     // Outdated:
@@ -67,7 +67,7 @@ public class StructureRendererv2 : MonoBehaviour
 
     public void handleInputData2ndY(int value)
     {
-        this._lay1SizeY = value;
+        this._lay1SizeY = value + 1;
     }
     // Outdated
     // public void storeLay1SizeX(string s)
